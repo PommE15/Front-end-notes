@@ -16,9 +16,9 @@
 
 But usually you want to turn all capturing and bubbling off to keep functions from interfering with each other, especially when the document structure is very complex, ie. lots of nested tables, you may save system resources by turning off bubbling. 
 
+- `preventDefault()` to prevent its default action but allow propagation to continue.
 - `stopPropagation()` - to stop bubbling the event, propagation (傳播)
-- `stopImmediatePropagation()` to not call any further listeners for the same event at the same level in the DOM
-- `preventDefault()` to allow propagation to continue but to disallow the browser to perform its default action should no listeners handle the event
+- `stopImmediatePropagation()` to stop other listeners of the same event from being called. If several listeners are attached to the same element for the same event type, they are called in the order in which they were added. If `stopImmediatePropagation()` is invoked during one such call, no remaining listeners will be called
 
 ### Event phases
 There are [3 event phases @w3](https://www.w3.org/TR/DOM-Level-3-Events/): **capture**, **target** and **bubble** phases. A phase will be skipped if it is not supported, or if the event object’s propagation has been stopped. For example, if the bubbles attribute is set to false, the bubble phase will be skipped, and if `stopPropagation()` has been called prior to the dispatch, all phases will be skipped.
@@ -58,3 +58,5 @@ myElement.addEventListener('click', functionB);
 
 ### debounce, t*
 
+### react.js
+- [Toggle, slider and checkbox using button, input: range, checkbox](https://codesandbox.io/s/03m9l56mp0)
