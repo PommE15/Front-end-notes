@@ -56,7 +56,41 @@ myElement.addEventListener('click', functionA); // both exist
 myElement.addEventListener('click', functionB);
 ```
 
-### debounce, t*
-
 ### react.js
 - [Toggle, slider and checkbox using button, input: range, checkbox](https://codesandbox.io/s/03m9l56mp0)
+
+
+## debounce and throttle
+[Debounce and Throttle: a visual explanation](http://drupalsun.com/david-corbacho/2012/10/10/debounce-and-throttle-visual-explanation)
+
+### debounce (once)
+- "group" multiple sequential calls in a single one
+-  guarantees that the function will only be executed a single time (given a specified threshhold), for example, the user has finished scrolling or typing a word
+- `leadin` / `immediate` and `traling` option
+
+use cases: 
+- **window resize**
+- **keypress on autocomplete form with Ajax request**
+- **auto save**
+
+### throttle (regular update)
+- execute once at least every X milliseconds 
+- guarantees the execution of the function regularly, but not (way) too often
+
+use cases: 
+- **Infinite scrolling**, 
+- **mouse movements**
+
+### requestAnimationFrame (a throttle alternative)
+use cases:
+- recalculates and renders elements on screen 
+- guarantee smooth changes or animations
+
+### Queueing
+...
+
+Use Lodash custom builder to output a custom 2KB minified library of the _.debounce and _.throttle functions
+```
+npm i -g lodash-cli
+lodash include = debounce, throttle
+```
