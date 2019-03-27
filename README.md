@@ -56,12 +56,18 @@ myElement.addEventListener('click', functionA); // both exist
 myElement.addEventListener('click', functionB);
 ```
 
-### react.js
+### React.js
 - [Toggle, slider and checkbox using button, input: range, checkbox](https://codesandbox.io/s/03m9l56mp0)
 
 
-## debounce and throttle
+## Debounce and Throttle
 [Debounce and Throttle: a visual explanation](http://drupalsun.com/david-corbacho/2012/10/10/debounce-and-throttle-visual-explanation)
+
+Use Lodash custom builder to output a custom 2KB minified library of the _.debounce and _.throttle functions
+```
+npm i -g lodash-cli
+lodash include = debounce, throttle
+```
 
 ### debounce (once)
 - "group" multiple sequential calls in a single one
@@ -86,11 +92,21 @@ use cases:
 - recalculates and renders elements on screen 
 - guarantee smooth changes or animations
 
-### Queueing
-...
+### queueing
+[Debounce vs Throttle vs Queue execution](https://medium.com/ghostcoder/debounce-vs-throttle-vs-queue-execution-bcde259768)
 
-Use Lodash custom builder to output a custom 2KB minified library of the _.debounce and _.throttle functions
-```
-npm i -g lodash-cli
-lodash include = debounce, throttle
-```
+# CSS
+## Layout
+Flexbox layout is most appropriate to the components of an application, and small-scale layouts, while the Grid layout is intended for larger scale layouts.
+### display: flex
+- [FLEXBOX FROGGY](https://flexboxfroggy.com/)
+- [A Complete Guide to Flexbox @css-tricks](https://css-tricks.com/snippets/css/a-guide-to-flexbox)
+### display: grid
+- [A Complete Guide to Grid @css-tricks](https://css-tricks.com/snippets/css/complete-guide-grid)
+
+### block vs inline elements
+- [block-level elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements#Elements)
+- [inline elements](https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements#Elements)
+- [block and inline layout in normal flow](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flow_Layout/Block_and_Inline_Layout_in_Normal_Flow)
+- [block vs. inline-block vs. inline](https://stackoverflow.com/questions/9189810/css-display-inline-vs-inline-block)
+- [content categories]()
