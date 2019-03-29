@@ -4,7 +4,6 @@
 `Document, Element, NodeList, Attribute`
 
 # Javascript
-
 ## Event
 ### Terms: delegation, bubbling vs capturing
 
@@ -56,10 +55,6 @@ myElement.addEventListener('click', functionA); // both exist
 myElement.addEventListener('click', functionB);
 ```
 
-### React.js
-- [Toggle, slider and checkbox using button, input: range, checkbox](https://codesandbox.io/s/03m9l56mp0)
-
-
 ## Debounce and Throttle
 [Debounce and Throttle: a visual explanation](http://drupalsun.com/david-corbacho/2012/10/10/debounce-and-throttle-visual-explanation)
 
@@ -95,12 +90,97 @@ use cases:
 ### queueing
 [Debounce vs Throttle vs Queue execution](https://medium.com/ghostcoder/debounce-vs-throttle-vs-queue-execution-bcde259768)
 
+## React.js
+- Toggle, slider and checkbox using button, input: range, checkbox
+- Grid and flex layout, position
+- [sandbox](https://codesandbox.io/s/03m9l56mp0)
+
+## Basics
+### var, let, and const
+|         | scope                                     | redeclear | update |
+|---------|-------------------------------------------|-----------|--------|
+| `var`   | global or local in function               | O         | O      | 
+| `let`   | [{} block: block, statement, or expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let)      | X         | O      | 
+| `const` |                                           | X*        | X*     | 
+
+```
+var numVar = 0;     
+let numLet = 1;     
+const numConst = 2;
+
+// redeclear
+let numVar = 0.1;   // -> 0.1
+var numLet = 1.1;   // -> Uncaught SyntaxError: Identifier 'numLet' has already been declared
+
+// update
+numLet = 1.2;       // -> 1.2
+numConst = 2.1;     // -> Uncaught TypeError: Assignment to constant variable.
+
+// mutable cases of const
+const arrConst = [0, 1, 2];
+const objConst = {a: 0, b: 1};
+
+arrConst[2] = 2.1;  // -> [0, 1, 2.1]
+objConst.b = 1.1;   // -> {a: 0, b: 1.1}
+
+Object.freeze(objConst);
+objConst.b = 1.2;   // -> 1.2, no *Error and no change, frozen!
+objConst;           // -> {a: 0, b: 1.1}
+
+this.numVar;        // -> 0.1
+this.numLet;        // -> undefined
+this.numConst;      // -> undefined
+this.Const;         // -> {a: 0, b: 1.1}
+
+// hoisting
+let x = 1;
+if (true) {
+  var x = 2; // Identifier 'x' has already been declared
+}
+```
+### hoisting
+- `var` variable declaration is moved to the top of the function or global code which will start with the value `undefined`
+- `let` bindings are created at the top of the (block) scope containing the declaration, otherwise results in a `ReferenceError`
+- function declarations in JavaScript are hoisted to the top of the enclosing function or global scope
+
+```
+hoisted(); // logs "foo"
+function hoisted() {
+  console.log('foo');
+}
+
+notHoisted(); // TypeError: notHoisted is not a function
+var notHoisted = function() {
+   console.log('bar');
+};
+```
+
+### Array and Object 
+flatten an array, merge
+
+nodelist to array 
+```
+nodelist = document.querySelectorAll("div")
+nodeArr1 = Array.prototype.slice.call(nodelist) or
+nodeArr2 = [].slice.call(nodelist) or
+nodeArr3 = [...nodelist] //ES6
+```
+
+Copy an array / object / dom
+```
+arr.slice() or [...arr]
+Object.assign({}, obj) or  {...obj} [in ES6]
+node.cloneNode(?deep)
+```
+
 # CSS
 ## Layout
 Flexbox layout is most appropriate to the components of an application, and small-scale layouts, while the Grid layout is intended for larger scale layouts.
+
 ### display: flex
 - [FLEXBOX FROGGY](https://flexboxfroggy.com/)
 - [A Complete Guide to Flexbox @css-tricks](https://css-tricks.com/snippets/css/a-guide-to-flexbox)
+
 ### display: grid
 - [A Complete Guide to Grid @css-tricks](https://css-tricks.com/snippets/css/complete-guide-grid)
 
