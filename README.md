@@ -96,12 +96,14 @@ use cases:
 - [sandbox](https://codesandbox.io/s/03m9l56mp0)
 
 ## Basics
-### var, let, and const
+### `var`, `let`, and `const`
 |         | scope                                     | redeclear | update |
 |---------|-------------------------------------------|-----------|--------|
-| `var`   | global or local in function               | O         | O      | 
+| `var`   | global, or local in function              | O         | O      | 
 | `let`   | [{} block: block, statement, or expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let)      | X         | O      | 
 | `const` |                                           | X*        | X*     | 
+
+`const` has a constant value with a trap of array/object assignment
 
 ```
 var numVar = 0;     
@@ -142,7 +144,6 @@ if (true) {
 - `var` variable declaration is moved to the top of the function or global code which will start with the value `undefined`
 - `let` bindings are created at the top of the (block) scope containing the declaration, otherwise results in a `ReferenceError`
 - function declarations in JavaScript are hoisted to the top of the enclosing function or global scope
-
 ```
 hoisted(); // logs "foo"
 function hoisted() {
@@ -154,6 +155,12 @@ var notHoisted = function() {
    console.log('bar');
 };
 ```
+if using `var`, the best practice is to place it as near to the top of the function as possible due to function scope, or use `let`/`const` instead.
+
+### closure
+- Functions and their environment (local variables)
+- A function can access the variables at the scope where it (the function) was declared
+- A function that has a pointer reference to a free variable
 
 ### Array and Object 
 flatten an array, merge
@@ -172,6 +179,40 @@ arr.slice() or [...arr]
 Object.assign({}, obj) or  {...obj} [in ES6]
 node.cloneNode(?deep)
 ```
+
+## ES6
+reference: [es6-features.org](http://es6-features.org)
+
+### Scoping
+- block-scoped varilables and function
+- avoid hoisting
+- facilitate module pattern
+
+### Spread Operator
+Spreading of elements of an iterable collection (ex. array, object, or even string) into
+array, object, or a function parameter
+```
+let arr = [3, true, 'hi'];
+let arrWithSpread = [1, 2, ...arr]; // [1, 2, 3, true, 'hi']
+
+function f (num1, num2, ...arr) {
+    return (num1 + num2) * arr.length;
+}
+f(1, 2, ...arr) === 9;
+// true
+
+let str = "salut";
+let chars = [...str]; // [ "s", "a", "l", "u", "t"]
+
+let obj = {a:1; b:2; c:[3, 4, 5], d:{e:6, f:7}};
+objCopy = {...obj};   // {a: 1, b: 2, c: Array(3), d: {…}}
+```
+
+## Patterns
+### module pattern / IIFE in ES5
+- declare a scoped block of code
+- separates between what is public and what is private
+- in ES6, 
 
 # CSS
 ## Layout
