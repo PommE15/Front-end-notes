@@ -79,7 +79,7 @@ use cases:
 - guarantees the execution of the function regularly, but not (way) too often
 
 use cases: 
-- **Infinite scrolling**, 
+- **Infinite scrolling**, **sticky header**
 - **mouse movements**
 
 ### requestAnimationFrame (a throttle alternative)
@@ -134,7 +134,18 @@ let x = 1;
 if (true) {
   var x = 2; // Identifier 'x' has already been declared
 }
+
+for(var i = 0; i<10; i++){
+  setTimeout(()=>console.log(i), 500);
+}
+// 10, 10, ... 10
+
+for(let i = 0; i<10; i++){
+  setTimeout(()=>console.log(i), 500);
+}
+// 0, 1, 2, ... 9
 ```
+
 ### Hoisting
 - `var` variable declaration is moved to the top of the function or global code which will start with the value `undefined`
 - `let` bindings are created at the top of the (block) scope containing the declaration, otherwise results in a `ReferenceError`
@@ -220,21 +231,33 @@ On the server, web frameworks like Express also structure its middleware logic i
 
 ref to [data structure in JS](https://medium.com/siliconwat/data-structures-in-javascript-1b9aed0ea17c)
 
+### (fat) arrow function:
+- do not have their own this value
+- vs function functions receive a this value automatically
+- hack `Self = thi`s / `.bind(this)` in function functions or `this` will be window or undefined 
+
+### callback function 
+In synchronous vs. promise: A callback function is a function passed into another
+function as an argument, which is then invoked inside the outer function to complete a routine or action
+
+### high order function: 
+ref to [eloquentjavascript.net](http://eloquentjavascript.net/)
+
+### !function / function* / yield(*) / generator
+
 ### apply / bind / call
-- `.apply()` and `.call()` are used to write a method once and then inherit it in another object (reusable method), the former one has arr [] as an argument and the later one use a list of arguments
-- `.bind()` creates a new function which, when called, has its this set to the provided value, 
+- `.apply(this, [arg1, arg2, ...])` and `call(this, arg1, arg2, ...)` are used to write a method once and then inherit it in another object (reusable method), the former one has arr [] as an argument and the later one use a list of arguments
+- `.bind(this, arg1, arg2, ...)` creates a new function which, when called, has its this set to the provided value, 
 with a given sequence of arguments preceding any provided when the new function was called
 
 ```
-// .apply(this, [arg1, arg2])
-// .call(this, arg1, arg2, ...)
+// 
+// .
 
 // nodelist to array
 nodelist = document.querySelectorAll("div");
 nodeArr1 = Array.prototype.slice.call(nodelist);  // method 1
-...
-```
-```
+
 // find max in a list of values
 Math.max(10, 5, 15, 1, 3, 42)
 arr = [10, 5, 15, 1, 3, 42]
@@ -242,9 +265,31 @@ Math.max.apply(null, arr)
 arr.reduce((a, b) => Math.max(a, b)) 	// ES6 - Array.reduce()
 Math.max(...arr)				              // ES6 - spread operator
 ```
+```
+// partial application
+function add(n1, n2) {
+  return n1 + n2;
+}
+add(1, 1); // 2
+
+const plus9 = add.bind(null, 9);
+plus9(1); // 10
+```
+ref to [partial application](https://medium.freecodecamp.org/how-to-use-partial-application-to-improve-your-javascript-code-5af9ad877833)
 
 ### iteration: forEach, map, filter, reduce, find
 forEach vs map: iterating over an array, the later one return an array with the same length
+```
+const arr = [1, 2, 3, 4, 5];
+arr.map(n => n+1);
+// (5) [2, 3, 4, 5, 6]
+arr.filter(n => n%2 === 0);
+// (2) [2, 4]
+arr.find(n => n===3);
+// 3 <- index
+arr.reduce((sum, n) => sum+= n, 0);
+// 15 <- sum
+```
 
 ## ES6
 ref to [es6-features.org](http://es6-features.org)
@@ -254,25 +299,57 @@ ref to [es6-features.org](http://es6-features.org)
 - avoid hoisting
 - facilitate module pattern
 
-### Spread Operator
-Spreading of elements of an iterable collection (ex. array, object, or even string) into
+### Template Literals
+
+### Extended Parameter Handling 
+Spread Operator: spreading of elements of an iterable collection (ex. array, object, or even string) into
 array, object, or a function parameter
 ```
 let arr = [3, true, 'hi'];
-let arrWithSpread = [1, 2, ...arr]; // [1, 2, 3, true, 'hi']
-
-function f (num1, num2, ...arr) {
-    return (num1 + num2) * arr.length;
-}
-f(1, 2, ...arr) === 9;
-// true
+let arrWithSpread = [1, 2, ...arr];  // [1, 2, 3, true, 'hi']
 
 let obj = {a:1; b:2; c:[3, 4, 5], d:{e:6, f:7}};
-objCopy = {...obj};   // {a: 1, b: 2, c: Array(3), d: {…}}
+objCopy = {...obj};  // {a: 1, b: 2, c: Array(3), d: {…}}
 
 let str = "salut";
-let chars = [...str]; // [ "s", "a", "l", "u", "t"]
+let chars = [...str];  // [ "s", "a", "l", "u", "t"]
 ```
+
+Rest parameter and default parameter value:
+```
+function f (num1, num2, ...arr, num3 = 1) {
+    return (num1 + num2) * arr.length - num3;
+}
+f(1, 2, ...arr) === 8;  // true
+```
+
+### Destructuring assignment
+Unpack values from arrays or objects' properites into individual variables.
+
+```
+let a, b, rest;
+[a, b] = [10, 20];
+[a, b, ...rest] = [10, 20, 30, 40, 50];  // rest = (3) [30, 40, 50]
+
+({ a, b } = { a: 10, b: 20 });
+({a, b, ...rest} = {a: 10, b: 20, c: 30, d: 40});
+```
+
+### Enhanced Object Properties
+Property shorthand:
+```
+let a = 10, b = 20;
+let obj = { a, b };  // {a: 10, b: 20}
+```
+
+### Arrow function
+- without its own bindings to the `this`, `arguments`, `super`, or `new.target` keywords
+
+### Module
+`export`, `import`, and `default`
+
+### Promise
+...
 
 ## Patterns
 ### module pattern / IIFE in ES5
