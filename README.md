@@ -90,11 +90,6 @@ use cases:
 ### queueing
 [Debounce vs Throttle vs Queue execution](https://medium.com/ghostcoder/debounce-vs-throttle-vs-queue-execution-bcde259768)
 
-## React.js
-- Toggle, slider and checkbox using button, input: range, checkbox
-- Grid and flex layout, position
-- [sandbox](https://codesandbox.io/s/03m9l56mp0)
-
 ## Basics
 ### `var`, `let`, and `const`
 |         | scope                                     | redeclear | update |
@@ -140,7 +135,7 @@ if (true) {
   var x = 2; // Identifier 'x' has already been declared
 }
 ```
-### hoisting
+### Hoisting
 - `var` variable declaration is moved to the top of the function or global code which will start with the value `undefined`
 - `let` bindings are created at the top of the (block) scope containing the declaration, otherwise results in a `ReferenceError`
 - function declarations in JavaScript are hoisted to the top of the enclosing function or global scope
@@ -157,20 +152,25 @@ var notHoisted = function() {
 ```
 if using `var`, the best practice is to place it as near to the top of the function as possible due to function scope, or use `let`/`const` instead.
 
-### closure
+### Scope
+A scope in JavaScript defines what variables you have access to. 
+
+### Closure
 - Functions and their environment (local variables)
-- A function can access the variables at the scope where it (the function) was declared
+- A function have access the variables at the scope where (the function) itself was declared
 - A function that has a pointer reference to a free variable
+
+ref to [scope and closure](https://css-tricks.com/javascript-scope-closures)
 
 ### Array and Object 
 flatten an array, merge
 
 nodelist to array 
 ```
-nodelist = document.querySelectorAll("div")
-nodeArr1 = Array.prototype.slice.call(nodelist) or
-nodeArr2 = [].slice.call(nodelist) or
-nodeArr3 = [...nodelist] //ES6
+nodelist = document.querySelectorAll("div");
+nodeArr1 = Array.prototype.slice.call(nodelist);  // method 1
+nodeArr2 = [].slice.call(nodelist);               // method 2
+nodeArr3 = [...nodelist];                         // method 3, ES6
 ```
 
 Copy an array / object / dom
@@ -179,9 +179,75 @@ arr.slice() or [...arr]
 Object.assign({}, obj) or  {...obj} [in ES6]
 node.cloneNode(?deep)
 ```
+- Stack: FILO/LIFO
+- Queue: FIFO, event, promise
+
+### Set
+- unique value
+- keyed collection
+- vs. array can have duplicated values and it's indexed collection
+
+### Map
+- order preserved
+- vs. object in Javascript has built-in prototype
+```
+let arr = [1, 2, 3];
+// (3) [1, 2, 3]
+
+let set = new Set([1, 2, 3, 3]);
+// Set(3) {1, 2, 3}
+
+let obj = {1: 'a', 2: 'b', 3:'c'};
+// {1: "a", 2: "b", 3: "c"}
+
+let map = new Map([[1, 'a'], [2, 'b'], [3, 'c']]);
+// Map(3) {1 => "a", 2 => "b", 3 => "c"}
+```
+
+### Linked list
+- store data elements in sequential order
+- instead of keeping indexes, linked lists hold pointers to other elements
+
+On the client, state management libraries like Redux structure its middleware logic in a linked-list fashion. When actions are dispatched, they are piped from one middleware to the next until all is visited before reaching the reducers.
+
+On the server, web frameworks like Express also structure its middleware logic in a similar fashion. When a request is received, it is piped from one middleware to the next until a response is issued.
+
+### Tree 
+- like a linked list, except it keeps references to many child nodes in a hierarchical structure. 
+- the Document Object Model (DOM) is such a structure
+- prototypal inheritance and composition with React components also produce tree structures
+- React’s Virtual DOM is also a tree structure.
+
+ref to [data structure in JS](https://medium.com/siliconwat/data-structures-in-javascript-1b9aed0ea17c)
+
+### apply / bind / call
+- `.apply()` and `.call()` are used to write a method once and then inherit it in another object (reusable method), the former one has arr [] as an argument and the later one use a list of arguments
+- `.bind()` creates a new function which, when called, has its this set to the provided value, 
+with a given sequence of arguments preceding any provided when the new function was called
+
+```
+// .apply(this, [arg1, arg2])
+// .call(this, arg1, arg2, ...)
+
+// nodelist to array
+nodelist = document.querySelectorAll("div");
+nodeArr1 = Array.prototype.slice.call(nodelist);  // method 1
+...
+```
+```
+// find max in a list of values
+Math.max(10, 5, 15, 1, 3, 42)
+arr = [10, 5, 15, 1, 3, 42]
+Math.max.apply(null, arr)
+arr.reduce((a, b) => Math.max(a, b)) 	// ES6 - Array.reduce()
+Math.max(...arr)				              // ES6 - spread operator
+```
+
+### iteration: forEach, map, filter, reduce, find
+forEach vs map: iterating over an array, the later one return an array with the same length
 
 ## ES6
-reference: [es6-features.org](http://es6-features.org)
+ref to [es6-features.org](http://es6-features.org)
 
 ### Scoping
 - block-scoped varilables and function
@@ -201,18 +267,27 @@ function f (num1, num2, ...arr) {
 f(1, 2, ...arr) === 9;
 // true
 
-let str = "salut";
-let chars = [...str]; // [ "s", "a", "l", "u", "t"]
-
 let obj = {a:1; b:2; c:[3, 4, 5], d:{e:6, f:7}};
 objCopy = {...obj};   // {a: 1, b: 2, c: Array(3), d: {…}}
+
+let str = "salut";
+let chars = [...str]; // [ "s", "a", "l", "u", "t"]
 ```
 
 ## Patterns
 ### module pattern / IIFE in ES5
 - declare a scoped block of code
 - separates between what is public and what is private
-- in ES6, 
+- ... see [ref](https://hashnode.com/post/do-es6-modules-make-the-case-of-iifes-obsolete-civ96wet80scqgc538un20es0)
+
+## React / Redux
+- React is the view library to magnage the UI init and updates
+- Redux is the state library to manage the data
+
+### Sandbox
+- Toggle, slider and checkbox using button, input: range, checkbox
+- Grid and flex layout, position
+- [sandbox](https://codesandbox.io/s/03m9l56mp0)
 
 # CSS
 ## Layout
