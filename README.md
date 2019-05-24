@@ -175,20 +175,39 @@ ref to [scope and closure](https://css-tricks.com/javascript-scope-closures)
 
 ### Array and Object 
 flatten an array, merge
-
-nodelist to array 
 ```
+//nodelist to array 
 nodelist = document.querySelectorAll("div");
 nodeArr1 = Array.prototype.slice.call(nodelist);  // method 1
 nodeArr2 = [].slice.call(nodelist);               // method 2
 nodeArr3 = [...nodelist];                         // method 3, ES6
 ```
+Reverse an array
+```
+const arr = [1, 3, 5, 7, 9];
+arrReversed1 = [...arr].reverse();
 
+arrLen = arr.length;
+arrReversed2 = arr.map((val, idx) => arr[arrLen - idx -1]);
+
+arrReversed3 = [];
+arrReversed4 = new Array(5);
+for (let i=0; i<arrLen; i++) {
+  arrReversed3.push(arr[arrLen - i - 1]);
+  arrReversed4[i] = arr[arrLen - i - 1];
+}
+```
 Copy an array / object / dom
 ```
-arr.slice() or [...arr]
-Object.assign({}, obj) or  {...obj} [in ES6]
-node.cloneNode(?deep)
+arrCopy1 = [...arr] // in ES6
+arrCopy2 = arr.slice()
+arrCopy3 = arr1.concat(arr2) // for 2
+
+objCopy1 = {...obj} [in ES6]
+objCopy2 = Object.assign({}, obj1, obj2)
+// or even iterate through the obj(s)
+
+node.cloneNode(?deep) // true for deep
 ```
 - Stack: FILO/LIFO
 - Queue: FIFO, event, promise
@@ -231,7 +250,7 @@ On the server, web frameworks like Express also structure its middleware logic i
 
 ref to [data structure in JS](https://medium.com/siliconwat/data-structures-in-javascript-1b9aed0ea17c)
 
-### (fat) arrow function:
+### (fat) arrow function
 - do not have their own this value
 - vs function functions receive a this value automatically
 - hack `Self = thi`s / `.bind(this)` in function functions or `this` will be window or undefined 
@@ -240,10 +259,11 @@ ref to [data structure in JS](https://medium.com/siliconwat/data-structures-in-j
 In synchronous vs. promise: A callback function is a function passed into another
 function as an argument, which is then invoked inside the outer function to complete a routine or action
 
-### high order function: 
+### high order function
 ref to [eloquentjavascript.net](http://eloquentjavascript.net/)
 
 ### !function / function* / yield(*) / generator
+...
 
 ### apply / bind / call
 - `.apply(this, [arg1, arg2, ...])` and `call(this, arg1, arg2, ...)` are used to write a method once and then inherit it in another object (reusable method), the former one has arr [] as an argument and the later one use a list of arguments
@@ -251,9 +271,6 @@ ref to [eloquentjavascript.net](http://eloquentjavascript.net/)
 with a given sequence of arguments preceding any provided when the new function was called
 
 ```
-// 
-// .
-
 // nodelist to array
 nodelist = document.querySelectorAll("div");
 nodeArr1 = Array.prototype.slice.call(nodelist);  // method 1
@@ -358,8 +375,12 @@ let obj = { a, b };  // {a: 10, b: 20}
 - ... see [ref](https://hashnode.com/post/do-es6-modules-make-the-case-of-iifes-obsolete-civ96wet80scqgc538un20es0)
 
 ## React / Redux
-- React is the view library to magnage the UI init and updates
-- Redux is the state library to manage the data
+### React is the view library to magnage the UI init and updates
+- Actions: send data from your application to your store
+- Reducers: specify how the application's state changes in response to actions sent to the store
+
+### Redux is the state library to manage the data
+
 
 ### Sandbox
 - Toggle, slider and checkbox using button, input: range, checkbox
@@ -383,3 +404,6 @@ Flexbox layout is most appropriate to the components of an application, and smal
 - [block and inline layout in normal flow](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flow_Layout/Block_and_Inline_Layout_in_Normal_Flow)
 - [block vs. inline-block vs. inline](https://stackoverflow.com/questions/9189810/css-display-inline-vs-inline-block)
 - [content categories]()
+
+### center
+ref to [Centering in CSS: A Complete Guide](https://css-tricks.com/centering-css-complete-guide)
