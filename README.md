@@ -407,3 +407,20 @@ Flexbox layout is most appropriate to the components of an application, and smal
 
 ### center
 ref to [Centering in CSS: A Complete Guide](https://css-tricks.com/centering-css-complete-guide)
+
+# Git
+a. [Pretty git branch graphs](https://stackoverflow.com/questions/1057564/pretty-git-branch-graphs) via `~/.gitconfig`:
+```
+[alias]
+lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+lg = !"git lg1"
+```
+then use 
+```
+git lg (or git lg1 or git lg2)
+```
+b. Replace a string in all files:
+```
+git grep -l 'original_text' | xargs sed -i '' -e 's/original_text/new_text/g'
+```
